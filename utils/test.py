@@ -1,3 +1,4 @@
+import datetime
 from load_yuhun_json import load_json_file
 import algo
 
@@ -9,7 +10,7 @@ l6_prop_limit = ['暴击', '暴击伤害']
 optimize = '输出伤害'
 limit_props = {'速度': {'min': 156, 'max': 158}, '暴击': {'min': 1, 'max': float('inf')}}
 limit_pane = {'输出伤害': {'min': 17800, 'max': float('inf')}}
-plan = {4: '狂骨', 2: '荒骷髅'}
+plan = {'4': '狂骨', '2': '荒骷髅'}
 shishen_pane = {
     '攻击': 3511,
     '生命': 388,
@@ -23,7 +24,11 @@ shishen_pane = {
 yuhun = algo.YuhunComb(yuhun_list, l2_prop_limit, l4_prop_limit,
                        l6_prop_limit, optimize, limit_props, limit_pane, plan, shishen_pane)
 
-yuhun.pipeline()
-# # print(combo_list.__next__())
-# combo = combo_list.__next__()
-# print(combo)
+# 程序执行时间：
+start = datetime.datetime.now()
+print('================start================')
+res = yuhun.pipeline()
+print(res)
+end = datetime.datetime.now()
+print('================end================')
+print(end - start)

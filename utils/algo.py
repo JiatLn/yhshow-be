@@ -155,9 +155,7 @@ class YuhunComb(object):
         for perm in yuhun_permutations:
             comb_yuhun_list = [[], [], [], [], [], []]
             for index, name in enumerate(perm):
-                for yuhun in self.yuhun_dict[index + 1]:
-                    if yuhun['name'] == name:
-                        comb_yuhun_list[index].append(yuhun)
+                comb_yuhun_list[index] = [y for y in self.yuhun_dict[index + 1] if y['name'] == name]
             cur_combo_num = reduce(lambda x, y: x * y, map(len, comb_yuhun_list))
             if cur_combo_num:
                 self.total_comb += cur_combo_num
@@ -176,7 +174,8 @@ class YuhunComb(object):
             combo_list = self.filter_prop_limit(combo_list, prop)
         # print(self.calc_pane(combo))
         combo_list = map(lambda x: self.calc_pane(x), combo_list)
-        res = max(combo_list, key=lambda dic: dic['optimize_pane'])
+        # 求最大值
+        res = max(combo_list, key=lambda dic: dic['optimize_pane'], default={})
         return res
 
     def add_yuhun_name(self, combo):
